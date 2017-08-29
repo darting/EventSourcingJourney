@@ -1,12 +1,11 @@
-﻿// Learn more about F# at http://fsharp.org
-
-open System
+﻿open System
 
 open Uno.Domain
 open CommandHandler
 open Deck
 open Game 
 open EventHandler
+open Uno.Persistence.InMemory.MemoryStore
 
 [<EntryPoint>]
 let main argv =
@@ -14,6 +13,16 @@ let main argv =
 
     let eventHandler = EventHandler ()
 
-    
+    let handle = Game.create readStream appendToStream
+    let gameId = GameId 1
 
-    0 // return an integer exit code
+    handle (StartGame { GameId = gameId; PlayerCount = 4; FirstCard = Digit(Three, Red)})
+    handle (PlayCard { GameId = gameId; Player = 0; Card = Digit(Three, Blue) })
+    handle (PlayCard { GameId = gameId; Player = 1; Card = Digit(Eight, Blue) })
+    handle (PlayCard { GameId = gameId; Player = 2; Card = Digit(Eight, Yellow) })
+    handle (PlayCard { GameId = gameId; Player = 3; Card = Digit(Four, Yellow) })
+    handle (PlayCard { GameId = gameId; Player = 0; Card = Digit(Four, Green) })
+
+    System.Console.ReadLine() |> ignore
+    
+    0

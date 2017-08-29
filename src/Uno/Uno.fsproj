@@ -10,7 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Uno.Domain\Uno.Domain.fsproj" />
+    <ProjectReference Include="..\Uno.Domain\Uno.Domain.fsproj" />
+    <ProjectReference Include="..\Uno.Persistence.InMemory\Uno.Persistence.InMemory.fsproj" />
   </ItemGroup>
 
 </Project>
