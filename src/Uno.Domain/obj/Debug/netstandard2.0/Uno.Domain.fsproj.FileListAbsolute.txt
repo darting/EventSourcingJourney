@@ -1,0 +1,1 @@
+C:\Users\Valor\github\darting\EventSourcingJourney\src\Uno.Domain\obj\Debug\netstandard2.0\Uno.Domain.fsproj.CoreCompileInputs.cache

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Deck.fs" />
+    <Compile Include="Game.fs" />
+    <Compile Include="CommandHandler.fs" />
+    <Compile Include="EventHandler.fs" />
+  </ItemGroup>
+
+</Project>
