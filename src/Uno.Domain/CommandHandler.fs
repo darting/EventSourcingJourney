@@ -26,18 +26,17 @@ module Game =
         let start gameId =
             Agent.Start 
             <| fun inbox -> 
-                let rec loop version state =
+                let rec loop lastEvent state =
                     async {
                         let! command = inbox.Receive() 
                         let events = handle command state
-                        do! save gameId version events
-
+                        do! save gameId (lastEvent + 1) events
                         let newState = List.fold State.evolve state events
-                        return! loop (version + List.length events) newState
+                        return! loop (lastEvent + List.length events) newState
                     }
                 async {
-                    let! version, state = load gameId
-                    return! loop version state
+                    let! lastEvent, state = load gameId
+                    return! loop lastEvent state
                 }
 
         let forward (agent : Agent<_>) command = agent.Post command
@@ -52,6 +51,7 @@ module Game =
                         match Map.tryFind id aggregates with 
                         | Some aggregate ->
                             forward aggregate command 
+                            return! loop aggregates
                         | None ->
                             let aggregate = start id
                             forward aggregate command 

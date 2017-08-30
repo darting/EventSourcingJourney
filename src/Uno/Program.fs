@@ -13,7 +13,10 @@ let main argv =
 
     let eventHandler = EventHandler ()
 
-    let handle = Game.create readStream appendToStream
+    let store = create () |> subscribe eventHandler.Handle
+
+    let handle = Game.create (readStream store) (appendToStream store)
+    
     let gameId = GameId 1
 
     handle (StartGame { GameId = gameId; PlayerCount = 4; FirstCard = Digit(Three, Red)})
